@@ -9,11 +9,12 @@ export function useRecorder(fps = 120, setTime: (time: number) => void) {
 
   const record = useCallback(
     (duration: number) => {
-      return new Promise<VideoFrame[]>((resolve, reject) => {
+      return new Promise<VideoFrame[]>(async (resolve, reject) => {
         {
           const totalFrames = Math.round(duration * fps)
           const videoFrames: VideoFrame[] = []
 
+          clock.current = 0
           while (videoFrames.length < totalFrames) {
             const t = clock.current / 1000 // seconds
 
@@ -21,7 +22,7 @@ export function useRecorder(fps = 120, setTime: (time: number) => void) {
             //
             //
 
-            flushSync(() => setTime?.(t))
+            flushSync(() => setTime(t))
             invalidate()
             // await new Promise(requestAnimationFrame);
 
