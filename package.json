@@ -1,0 +1,36 @@
+{
+  "name": "@demo/basic-demo",
+  "version": "1.0.0",
+  "description": "Shows how to form self-contained components with their own state and user interaction.",
+  "homepage": "https://codesandbox.io/s/rrppl0y8l4",
+  "keywords": ["interaction", "pointer-events"],
+  "dependencies": {
+    "@react-three/drei": "^10.5.0",
+    "@react-three/fiber": "https://storage.googleapis.com/abernier-portfolio/react-three-fiber-9.2.0--bc2581c.tgz",
+    "jszip": "^3.10.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "^0.178.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@types/three": "^0.178.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0"
+  },
+  "scripts": {
+    "dev": "vite --host",
+    "dev3": "e2e-dev $npm_package_name",
+    "build": "tsc && vite build",
+    "build2": "tsc && e2e-build $npm_package_name",
+    "preview": "vite preview"
+  },
+  "browserslist": [">1%", "not dead", "not ie <= 11", "not op_mini all"],
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pmndrs/examples/tree/main/demos/basic-demo"
+  }
+}
