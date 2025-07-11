@@ -15,6 +15,7 @@ export function useRecorder(fps = 120, setTime: (time: number) => void) {
           const videoFrames: VideoFrame[] = []
 
           clock.current = 0
+          const loopStart = performance.now(); // Start timing
           while (videoFrames.length < totalFrames) {
             const t = clock.current / 1000 // seconds
 
@@ -37,6 +38,8 @@ export function useRecorder(fps = 120, setTime: (time: number) => void) {
             //
             clock.current += dt // tick clock
           }
+          const loopEnd = performance.now(); // End timing
+          console.log(`Recording loop took ${(loopEnd - loopStart).toFixed(2)} ms`);
 
           resolve(videoFrames)
         }

@@ -35,7 +35,8 @@ export default function App() {
 }
 
 function Scene({ time, setTime }: { time: number; setTime: (time: number) => void }) {
-  const { record } = useRecorder(fps, setTime)
+  const [time2, setTime2] = useState(0)
+  const { record } = useRecorder(fps, setTime2)
 
   const handleClick = async () => {
     const videoFrames = await record(2)
@@ -55,7 +56,7 @@ function Scene({ time, setTime }: { time: number; setTime: (time: number) => voi
       <ambientLight intensity={Math.PI / 2} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
       <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-      <Box time={time} onDoubleClick={handleClick} />
+      <Box time={time2} onDoubleClick={handleClick} />
     </>
   )
 }
