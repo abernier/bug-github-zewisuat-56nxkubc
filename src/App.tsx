@@ -1,6 +1,7 @@
 import { ComponentProps, ComponentRef, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useRecorder, zip } from './useRecorder'
+import { Mesh } from 'three'
 
 const fps = 60
 
@@ -62,19 +63,21 @@ function Scene({ time, setTime }: { time: number; setTime: (time: number) => voi
 }
 
 function Box({ time, ...props }: { time: number } & ComponentProps<'mesh'>) {
-  const ref = useRef<ComponentRef<'mesh'>>(null)
+  const ref = useRef<Mesh>(null)
 
-  // useEffect(() => {
-  //   if (ref.current) {
-  //     ref.current.rotation.x = time
-  //   }
-  // }, [time])
+  useEffect(() => {
+    console.log('useEffect', time)
+    
+    if (ref.current) {
+      ref.current.rotation.x = time
+    }
+  }, [time])
 
   return (
     <mesh
       ref={ref}
       {...props}
-      rotation-x={time}
+      // rotation-x={time}
       //
     >
       <boxGeometry args={[1, 1, 1]} />
