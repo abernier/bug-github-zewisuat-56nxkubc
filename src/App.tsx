@@ -63,14 +63,12 @@ function Scene({ time, setTime }: { time: number; setTime: (time: number) => voi
 }
 
 function Box({ time, ...props }: { time: number } & ComponentProps<'mesh'>) {
-  const ref = useRef<Mesh>(null)
+  const ref = useRef<Mesh>(null!)
 
   useEffect(() => {
     console.log('useEffect', time)
     
-    if (ref.current) {
-      ref.current.rotation.x = time
-    }
+    ref.current.rotation.x = time
   }, [time])
 
   return (
