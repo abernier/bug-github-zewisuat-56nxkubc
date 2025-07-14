@@ -2,11 +2,12 @@ import { ComponentProps, ComponentRef, useEffect, useRef, useState } from 'react
 import { Canvas } from '@react-three/fiber'
 import { useRecorder, zip } from './useRecorder'
 import { Mesh } from 'three'
+import { Html } from './Html'
 
 const fps = 60
 
 export default function App() {
-  const [time, setTime] = useState(0)
+  const [time, setTime] = useState(0) // r3f "external" state
 
   return (
     <>
@@ -29,15 +30,12 @@ export default function App() {
           />
         </label>
       </div>
-
-      <p style={{ position: 'fixed', bottom: 0, left: 0, right: 0, textAlign: 'center' }}>Double-click cube to export scene</p>
     </>
   )
 }
 
 function Scene({ time, setTime }: { time: number; setTime: (time: number) => void }) {
-  const [time2, setTime2] = useState(0)
-  const { record } = useRecorder(fps, setTime2)
+  const { record } = useRecorder(fps, setTime)
 
   const handleClick = async () => {
     const videoFrames = await record(2)
@@ -57,7 +55,17 @@ function Scene({ time, setTime }: { time: number; setTime: (time: number) => voi
       <ambientLight intensity={Math.PI / 2} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
       <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-      <Box time={time2} onDoubleClick={handleClick} />
+      <Box time={time} />
+
+      <Html style={{ position: 'fixed', bottom: 0, left: 0, right: 0, textAlign: 'center' }}>
+        <p onClick={handleClick}>
+          <button>🔴 Export</button> the scene
+          <br />{' '}
+          <small>
+            (will <code>flushSync</code> <code>time</code> state)
+          </small>
+        </p>
+      </Html>
     </>
   )
 }
@@ -67,7 +75,7 @@ function Box({ time, ...props }: { time: number } & ComponentProps<'mesh'>) {
 
   useEffect(() => {
     console.log('useEffect', time)
-    
+
     ref.current.rotation.x = time
   }, [time])
 
