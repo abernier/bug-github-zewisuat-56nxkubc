@@ -78,6 +78,7 @@ function Box({ time, ...props }: { time: number } & ComponentProps<'mesh'>) {
       ref={ref}
       {...props}
       // rotation-x={time}
+      rotation-y={time}
       //
     >
       <boxGeometry args={[1, 1, 1]} />
